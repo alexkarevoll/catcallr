@@ -1,0 +1,57 @@
+.container {
+  height: 600px;
+  width: 1000px;
+  margin: 0 auto;
+  background-color: grey;
+}
+
+.top {
+  height: 400px;
+  width: 1000px;
+  background-color: red;
+}
+
+.bottom {
+  height: 200px;
+  background-color: blue;
+}
+
+.player-one, .player-two{
+  height: 400px;
+  width: 200px;
+  display: inline-block;
+  margin-right: -4px;
+  background-color: purple;
+}
+
+.cat-space {
+  height: 400px;
+  width: 600px;
+  display: inline-block;
+  background-color: orange;
+  margin-right: -4px;
+}
+
+.player-one-text, .player-two-text{
+  width:200px;
+  height:200px;
+  display:inline-block;
+  margin-right: -4px;
+  background-color: coral;
+}
+
+.user-choices{
+  width: 600px;
+  height: 200px;
+  display: inline-block;
+  margin-right: -4px;
+  background-color: #1E90FF;
+}
+
+.user-choices div{
+  width:600px;
+  height:50px;
+  background-color:grey;
+  background: linear-gradient(grey, white, grey);
+  font-size: 20px;
+}
