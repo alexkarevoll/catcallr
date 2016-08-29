@@ -1,4 +1,6 @@
-// Define global variables
+//////////////////////
+// GLOBAL VARIABLES //
+//////////////////////
 
 var turn = true;
 var currentMoveSet = [];
@@ -6,7 +8,11 @@ var playerMove = {};
 
 $choices = $('.choice');
 
-// Create a moves object with three categories of three moves and their various strengths
+//////////////////////////////////
+// OBJECTS AND HELPER FUNCTIONS //
+//////////////////////////////////
+
+// Create a moves array with three categories of three moves and their various strengths
 
 var moves = [
   {
@@ -57,24 +63,30 @@ var moves = [
 ];
 
 // Create a cat object with weaknesses to certain kinds of moves.
-// In the future it would be awesome to have random cat stats or multiple cats
+// TODO In the future it would be awesome to have random cat stats or multiple cats
 
 var cat = {};
 
 cat.bias ={
   reason : .5,
   amuse : 1,
-  treat : 1.5,
+  treat : 2,
 }
 
-// Function that picks a random item out of a given array no matter how long
+// Helper function that picks a random item out of a given array no matter how long. Thanks, Mike!
 function pickRandom(arr) {
   return arr[Math.floor(Math.random()*arr.length)]
 };
 
+//////////////////////////
 // MOVE SELECTION SPACE //
+//////////////////////////
+
 // Function to populate board with four new random moves
+// TODO No duplicates would be ideal
+
 function newMoves(){
+  currentMoveSet = [];
 
   for (var i = 0; i<$choices.length; i++){
     currentMoveSet.push(pickRandom(moves))
@@ -104,6 +116,8 @@ $choices.on('click', function(){
 })
 
 // Logic for comparing chosen move to cat's weakness
+
+
 
 // Logic for moving cat based on the comparison of weakness to user move, and printing status message to players
 
