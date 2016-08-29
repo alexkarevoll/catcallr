@@ -87,13 +87,21 @@ function newMoves(){
 
 
 // Logic for player choosing a move
-function setMove(){
-  if
-  $('#choice-one').text(currentMoveSet[0].text);
-  $('#choice-two').text(currentMoveSet[1].text);
-  $('#choice-three').text(currentMoveSet[2].text);
-  $('#choice-four').text(currentMoveSet[3].text);
-}
+$choices.on('click', function(){
+  var id = this.id;
+  if (id === 'choice-one'){
+    playerMove = currentMoveSet[0];
+  }
+  else if (id === 'choice-two'){
+    playerMove = currentMoveSet[1];
+  }
+  else if (id === 'choice-three'){
+    playerMove = currentMoveSet[2];
+  }
+  else if (id === 'choice-four'){
+    playerMove = currentMoveSet[3];
+  }
+})
 
 // Logic for comparing chosen move to cat's weakness
 
