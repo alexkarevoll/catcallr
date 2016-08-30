@@ -12,7 +12,6 @@ var playerMove = {};
 
 $cat = $('.cat-icon')
 $newTurnBtn = $('.new-turn-btn')
-$lockInBtn = $('.lock-in-btn')
 $choices = $('.choice');
 $p1Text = $('.player-one-text')
 $p2Text = $('.player-two-text')
@@ -126,7 +125,7 @@ function newMoves(){
 
 
 // Logic for player choosing a move
-$choices.on('click', function(){
+function playerChoose(){
   // gets the id of the item clicked
   var id = this.id;
   // based on the given id, stores the move object clicked to a variable called playerMove
@@ -142,7 +141,12 @@ $choices.on('click', function(){
   else if (id === 'choice-four'){
     playerMove = currentMoveSet[3];
   }
-})
+}
+
+// On click for choices
+
+$choices.on('click', playerChoose)
+$choices.on('click', lockIn)
 
 // Logic for comparing chosen move to cat's weakness
 // Take the strength of the player's chosen move and multiply it by the strength of the cat's bias to moves of that type. Output that move data.
@@ -192,7 +196,7 @@ function declareWinner(){
 // Lock In Choice button
 // TODO remove this button
 
-$lockInBtn.on("click", function(){
+function lockIn(){
   if(lockAllow){
     if(playerMove.text !== undefined){ // makes sure player has made a choice TODO doesn't work
       calcCatMove();
@@ -202,12 +206,12 @@ $lockInBtn.on("click", function(){
       newTurnAllow = true;
     }
   }
-})
+}
 
 // New Turn button
 // TODO remove this button
 
-$newTurnBtn.on("click", function() {
+function nextTurn() {
   if(newTurnAllow){
     setMoves();
     newMoves();
@@ -216,8 +220,12 @@ $newTurnBtn.on("click", function() {
     lockAllow = true;
     newTurnAllow = false;
     playerMove = [];
+    // Reset colors
+    $choices.removeClass('selected-move')
   }
-})
+}
+
+$newTurnBtn.on('click', nextTurn)
 
 //////////////////
 // TAKING TURNS //
