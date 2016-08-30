@@ -34,7 +34,7 @@
 }
 
 /*Stolen from css tricks*/
-.flip {
+.flip-img {
   -moz-transform: scaleX(-1);
   -o-transform: scaleX(-1);
   -webkit-transform: scaleX(-1);
@@ -51,7 +51,7 @@
   margin-right: -4px;
 }
 
-.cat-space img {
+.cat-icon {
     border: none;
     display: block;
     margin: 0 auto;

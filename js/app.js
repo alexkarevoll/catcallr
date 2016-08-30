@@ -10,6 +10,8 @@ $cat = $('.cat-icon')
 $newTurnBtn = $('.new-turn-btn')
 $lockInBtn = $('.lock-in-btn')
 $choices = $('.choice');
+$p1Text = $('.player-one-text')
+$p2Text = $('.player-two-text')
 
 //////////////////////////////////
 // OBJECTS AND HELPER FUNCTIONS //
@@ -119,10 +121,10 @@ $choices.on('click', function(){
 })
 
 // Logic for comparing chosen move to cat's weakness
-// Take the strength of the player's chosen move and multiply it by the strength of the cat's bias to moves of that type.
+// Take the strength of the player's chosen move and multiply it by the strength of the cat's bias to moves of that type. Out put move data.
 function calcCatMove() {
   catMoveRaw = playerMove.str * cat.bias[playerMove.type];
-  console.log(catMoveRaw);
+  console.log(catMoveRaw + "rawCatMove");
 }
 
 // Moving cat animation
@@ -131,10 +133,21 @@ function calcCatMove() {
  function moveCat(){
   // finds current cat position in pixels, converts it to a number and assigns it to a value
   currentCatMargin = parseInt($cat.css("margin-left"));
-  console.log(currentCatMargin);
-  // moves cat to the left based on how effective user choice weakness
-  // - could be changed for + if it was second player's turn
-  $cat.animate({marginLeft: (currentCatMargin + (catMoveRaw)) + "px"}, "slow");
+  console.log(currentCatMargin + "Before");
+  // moves cat to the left based on move data.
+  if (turn){
+    $cat.animate({marginLeft: (currentCatMargin - (catMoveRaw)) + "px"}, "slow");
+    currentCatMargin = parseInt($cat.css("margin-left"));
+    console.log(currentCatMargin + ":After");
+    }
+  // - changed for + if it is second player's turn
+  else {
+    $cat.animate({marginLeft: (currentCatMargin + (catMoveRaw)) + "px"}, "slow");
+    currentCatMargin = parseInt($cat.css("margin-left"));
+    console.log(currentCatMargin + ":Before");
+  }
+
+
 }
 
 // Lock In Choice button
@@ -149,32 +162,43 @@ $lockInBtn.on("click", function(){
 
 $newTurnBtn.on("click", function() {
   newMoves();
+  $newTurnBtn.text("Next Turn")
+  takeTurn();
 })
 
 //////////////////
 // TAKING TURNS //
 //////////////////
 function takeTurn(){
+  // If it was P1's turn, make it p2's turn, print that out, and flip the cat to face the opponent.
   if (turn){
     turn = false;
+    $p1Text.text("");
+    $p2Text.text("P2 TURN")
+    $cat.toggleClass('flip-img')
   }
   else{
     turn = true;
+    $p1Text.text("P1 TURN")
+    $p2Text.text("")
+    $cat.toggleClass('flip-img')
   }
 }
 
 // Logic for declaring a winner if cat reaches player goal line
+// TODO Broken at the moment
 function declareWinner(){
   if (currentCatMargin < 0){
     console.log("Player One Wins!")
-    $('.player-one-text').text("P1 WINS!")
+    $p1Text.text("P1 WINS!")
   }
   else if (currentCatMargin > 475){
     console.log("Player Two Wins!")
-    $('.player-two-text').text("P2 WINS!")
+    $p2Text.text("P2 WINS!")
   }
 }
 
-
+// Starts Game with moves on board
+newMoves();
 
 // Restart game button
