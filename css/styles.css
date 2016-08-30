@@ -47,9 +47,10 @@
   height: 400px;
   width: 600px;
   display: inline-block;
-  background-color: #D3D3D3;
+  background-color: #3A3A3F;
   margin-right: -4px;
   font-size: 20px;
+  color: white;
   text-align: center;
   font-family: 'Press Start 2P', cursive;
 }
@@ -66,7 +67,7 @@
   width: 128px;
   margin:0 auto;
   margin-top: 9%;
-  background-color: coral;
+  background-color: #FF9F3A;
   line-height: 64px;
   text-align: center;
   border-radius: 10px;
@@ -81,6 +82,10 @@
 .lock-in-btn{
   display: inline-block;
   float: right;
+}
+
+.new-turn-btn:hover, .lock-in-btn:hover{
+  background-color: #ed7900;
 }
 
 .player-one-text, .player-two-text{
@@ -101,18 +106,24 @@
   height: 200px;
   display: inline-block;
   margin-right: -4px;
-  background-color: pink;
+  background-color: #C0C0C0;
   overflow: hidden;
 }
 
 .user-choices div{
   width:600px;
   height:50px;
-  background-color:#C0C0C0;
-  background: linear-gradient(#C0C0C0	, #FFFFFF, #C0C0C0);
   font-size: 17px;
   line-height: 50px;
   text-indent: 10px;
   overflow: hidden;
   font-family: 'Open Sans', sans-serif;
+}
+
+.user-choices div:hover{
+  background-color: #FFFF9F;
+}
+
+.selected-move{
+  background-color: #FFFF9F;
 }

@@ -22,8 +22,9 @@ $p2Text = $('.player-two-text')
 //////////////////////////////////
 
 // Create a moves array with three categories of three moves and their various strengths
-
-var moves = [
+var moves;
+function setMoves(){
+  moves = [
   {
     text: "attempt to speak to cat in it's native tongue",
     str: 20,
@@ -70,6 +71,7 @@ var moves = [
     type: 'treat',
   }
 ];
+}
 
 // Create a cat object with weaknesses to certain kinds of moves.
 // TODO In the future it would be awesome to have random cat stats or multiple cats
@@ -82,24 +84,40 @@ cat.bias ={
   treat : 2,
 }
 
-// Helper function that picks a random item out of a given array no matter how long. Thanks, Mike!
+// Helper function that picks a random item out of a given array no matter how long, then removes that item from the original array. Thanks, Mike and Kate
 function pickRandom(arr) {
-  return arr[Math.floor(Math.random()*arr.length)]
+  // picks a random item and sets it to choice
+  var i = Math.floor(Math.random()*arr.length);
+  var choice = arr[i]
+  // removes that random item from the array to prevent duplicates from being entered into the future array
+  arr.splice(i,1)
+  // returns that random item
+  return choice
 };
+
+// Choice lights up on click
+$choices.on('click', function(){
+  $choices.removeClass('selected-move')
+  $(this).toggleClass('selected-move')
+})
+
+//
 
 //////////////////////////
 // MOVE SELECTION SPACE //
 //////////////////////////
 
 // Function to populate board with four new random moves
-// TODO No duplicates would be ideal
 
 function newMoves(){
+  // reset the move set
   currentMoveSet = [];
 
+  // pushes the random array item into a new move set
   for (var i = 0; i<$choices.length; i++){
     currentMoveSet.push(pickRandom(moves))
   }
+  // displays each move's text on the screen
   $('#choice-one').text(currentMoveSet[0].text);
   $('#choice-two').text(currentMoveSet[1].text);
   $('#choice-three').text(currentMoveSet[2].text);
@@ -109,7 +127,9 @@ function newMoves(){
 
 // Logic for player choosing a move
 $choices.on('click', function(){
+  // gets the id of the item clicked
   var id = this.id;
+  // based on the given id, stores the move object clicked to a variable called playerMove
   if (id === 'choice-one'){
     playerMove = currentMoveSet[0];
   }
@@ -125,14 +145,13 @@ $choices.on('click', function(){
 })
 
 // Logic for comparing chosen move to cat's weakness
-// Take the strength of the player's chosen move and multiply it by the strength of the cat's bias to moves of that type. Out put move data.
+// Take the strength of the player's chosen move and multiply it by the strength of the cat's bias to moves of that type. Output that move data.
 function calcCatMove() {
   catMoveRaw = playerMove.str * cat.bias[playerMove.type];
   console.log(catMoveRaw + "rawCatMove");
 }
 
 // Moving cat animation
-
  function moveCat(){
   // finds current cat position in pixels, converts it to a number and assigns it to a value
   currentCatMargin = parseInt($cat.css("margin-left"));
@@ -140,16 +159,14 @@ function calcCatMove() {
   // moves cat to the left based on move data.
   if (turn){
     $cat.animate({marginLeft: (currentCatMargin - (catMoveRaw)) + "px"}, "slow", function(){
-      // sets final position after animation is complete
-      // currentCatMargin = parseInt($cat.css("margin-left"))
+      // checks to see if anyone won
       declareWinner();
     });
     }
   // - changed for + if it is second player's turn
   else {
     $cat.animate({marginLeft: (currentCatMargin + (catMoveRaw)) + "px"}, "slow", function(){
-      // sets final position after animation is complete
-      // currentCatMargin = parseInt($cat.css("margin-left"))
+      // checks to see if anyone won
       declareWinner();
     });
   }
@@ -173,6 +190,8 @@ function declareWinner(){
 
 
 // Lock In Choice button
+// TODO remove this button
+
 $lockInBtn.on("click", function(){
   if(lockAllow){
     if(playerMove.text !== undefined){ // makes sure player has made a choice TODO doesn't work
@@ -186,9 +205,11 @@ $lockInBtn.on("click", function(){
 })
 
 // New Turn button
+// TODO remove this button
 
 $newTurnBtn.on("click", function() {
   if(newTurnAllow){
+    setMoves();
     newMoves();
     takeTurn();
     // prevent button mashing until lock-in
@@ -197,7 +218,6 @@ $newTurnBtn.on("click", function() {
     playerMove = [];
   }
 })
-
 
 //////////////////
 // TAKING TURNS //
@@ -219,6 +239,7 @@ function takeTurn(){
 }
 
 // Starts Game with moves on board
+setMoves();
 newMoves();
 
 // Restart game button
