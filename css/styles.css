@@ -49,8 +49,9 @@
   display: inline-block;
   background-color: #D3D3D3;
   margin-right: -4px;
-  font-size: 18px;
+  font-size: 20px;
   text-align: center;
+  font-family: 'Press Start 2P', cursive;
 }
 
 .cat-icon {
@@ -69,7 +70,7 @@
   line-height: 64px;
   text-align: center;
   border-radius: 10px;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 .new-turn-btn{
@@ -88,9 +89,11 @@
   display:inline-block;
   margin-right: -4px;
   background-color: black;
-  font-size: 50px;
+  font-size: 48px;
   color: white;
   text-align: center;
+  font-family: 'Press Start 2P', cursive;
+  line-height: 100px;
 }
 
 .user-choices{
@@ -107,8 +110,9 @@
   height:50px;
   background-color:#C0C0C0;
   background: linear-gradient(#C0C0C0	, #FFFFFF, #C0C0C0);
-  font-size: 22px;
+  font-size: 17px;
   line-height: 50px;
-  text-indent: 20px;
+  text-indent: 10px;
   overflow: hidden;
+  font-family: 'Open Sans', sans-serif;
 }
