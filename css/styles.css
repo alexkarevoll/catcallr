@@ -48,16 +48,26 @@
     margin-top: 25%;
 }
 
-.new-turn-btn {
+.new-turn-btn, .lock-in-btn {
   height: 64px;
   width: 128px;
   margin:0 auto;
-  margin-top: 7.5%;
+  margin-top: 9%;
   background-color: coral;
   line-height: 64px;
   text-align: center;
   border-radius: 10px;
   font-size: 20px;
+}
+
+.new-turn-btn{
+  display: inline-block;
+  float:left;
+}
+
+.lock-in-btn{
+  display: inline-block;
+  float: right;
 }
 
 .player-one-text, .player-two-text{

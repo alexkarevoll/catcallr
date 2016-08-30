@@ -6,8 +6,10 @@ var turn = true;
 var currentMoveSet = [];
 var playerMove = {};
 
-$choices = $('.choice');
 $cat = $('.cat-icon')
+$newTurnBtn = $('.new-turn-btn')
+$lockInBtn = $('.lock-in-btn')
+$choices = $('.choice');
 
 //////////////////////////////////
 // OBJECTS AND HELPER FUNCTIONS //
@@ -17,48 +19,48 @@ $cat = $('.cat-icon')
 
 var moves = [
   {
-    text: "reason1text",
-    str: 2,
+    text: "attempt to speak to cat in it's native tongue",
+    str: 20,
     type: 'reason',
   },
   {
-    text: "reason2text",
-    str: 4,
+    text: "draw a simple chart with an arrow pointing from the cat to you",
+    str: 40,
     type: 'reason',
   },
   {
-    text: "reason3text",
-    str: 6,
+    text: "deliver dissertation on the advantages of human companionship",
+    str: 60,
     type: 'reason',
   },
   {
-    text: "amuse1text",
-    str: 2,
+    text: "click your tongue against the roof of your mouth",
+    str: 20,
     type: 'amuse',
   },
   {
-    text: "amuse2text",
-    str: 4,
+    text: "pull out your car keys and start jingling them",
+    str: 40,
     type: 'amuse',
   },
   {
-    text: "amuse3text",
-    str: 6,
+    text: "craft rudimentary catnip cigar toy",
+    str: 60,
     type: 'amuse',
   },
   {
-    text: "treat1text",
-    str: 2,
+    text: "hold out some pocket lint, but make it look like food",
+    str: 20,
     type: 'treat',
   },
   {
-    text: "treat2text",
-    str: 4,
+    text: "scavenge for a sardine can in a nearby trash can",
+    str: 40,
     type: 'treat',
   },
   {
-    text: "treat3text",
-    str: 6,
+    text: "peel the lox off of your work lunch and dangle it in front of you",
+    str: 60,
     type: 'treat',
   }
 ];
@@ -123,25 +125,30 @@ function calcCatMove() {
   console.log(catMoveRaw);
 }
 
+// Moving cat animation
+// Broken now that its not on click
+
+ function moveCat(){
+  // finds current cat position in pixels, converts it to a number and assigns it to a value
+  var currentCatMargin = parseInt($cat.css("margin-left"));
+  console.log(currentCatMargin);
+  // moves cat to the left based on how effective user choice weakness
+  // - could be changed for + if it was second player's turn
+  $cat.animate({marginLeft: (currentCatMargin - (catMoveRaw)) + "px"}, "slow");
+}
+
+// Lock In button
+$lockInBtn.on("click", function(){
+  calcCatMove();
+  moveCat();
+
+})
+
 // New Turn button
 
-$newTurnBtn = $('.new-turn-btn')
-$newTurnBtn. on("click", function() {
+$newTurnBtn.on("click", function() {
   newMoves();
 })
-
-// Moving cat animation
-
-$cat.on('click', function (){
-  var currentMargin = $(this).css("margin-left");
-  console.log(currentMargin);
-  $(this).animate({marginLeft: (parseInt(currentMargin) + catMoveRaw) + "px"}, "slow");
-})
-
-
-
-
-// Animation for moving cat based on the raw move score, taking into account which player chose
 
 //Prints movement result message to players
 
