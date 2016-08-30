@@ -175,14 +175,14 @@ function declareWinner(){
 // Lock In Choice button
 $lockInBtn.on("click", function(){
   if(lockAllow){
-    newTurnAllow = true;
-    calcCatMove();
-    moveCat();
-    // prevent button mashing until new turn
-    lockAllow = false;
+    if(playerMove.text !== undefined){ // makes sure player has made a choice TODO doesn't work
+      calcCatMove();
+      moveCat();
+      // prevent button mashing until new turn
+      lockAllow = false;
+      newTurnAllow = true;
+    }
   }
-
-
 })
 
 // New Turn button
@@ -190,10 +190,11 @@ $lockInBtn.on("click", function(){
 $newTurnBtn.on("click", function() {
   if(newTurnAllow){
     newMoves();
-    $newTurnBtn.text("Next Turn")
     takeTurn();
+    // prevent button mashing until lock-in
     lockAllow = true;
     newTurnAllow = false;
+    playerMove = [];
   }
 })
 

@@ -49,13 +49,15 @@
   display: inline-block;
   background-color: #D3D3D3;
   margin-right: -4px;
+  font-size: 18px;
+  text-align: center;
 }
 
 .cat-icon {
     border: none;
     display: block;
     margin: 0 auto;
-    margin-top: 25%;
+    margin-top: 5%;
 }
 
 .new-turn-btn, .lock-in-btn {
