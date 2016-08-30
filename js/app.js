@@ -130,17 +130,18 @@ function calcCatMove() {
 
  function moveCat(){
   // finds current cat position in pixels, converts it to a number and assigns it to a value
-  var currentCatMargin = parseInt($cat.css("margin-left"));
+  currentCatMargin = parseInt($cat.css("margin-left"));
   console.log(currentCatMargin);
   // moves cat to the left based on how effective user choice weakness
   // - could be changed for + if it was second player's turn
-  $cat.animate({marginLeft: (currentCatMargin - (catMoveRaw)) + "px"}, "slow");
+  $cat.animate({marginLeft: (currentCatMargin + (catMoveRaw)) + "px"}, "slow");
 }
 
-// Lock In button
+// Lock In Choice button
 $lockInBtn.on("click", function(){
   calcCatMove();
   moveCat();
+  declareWinner();
 
 })
 
@@ -153,9 +154,27 @@ $newTurnBtn.on("click", function() {
 //////////////////
 // TAKING TURNS //
 //////////////////
-
-//Prints movement result message to players
+function takeTurn(){
+  if (turn){
+    turn = false;
+  }
+  else{
+    turn = true;
+  }
+}
 
 // Logic for declaring a winner if cat reaches player goal line
+function declareWinner(){
+  if (currentCatMargin < 0){
+    console.log("Player One Wins!")
+    $('.player-one-text').text("P1 WINS!")
+  }
+  else if (currentCatMargin > 475){
+    console.log("Player Two Wins!")
+    $('.player-two-text').text("P2 WINS!")
+  }
+}
+
+
 
 // Restart game button
