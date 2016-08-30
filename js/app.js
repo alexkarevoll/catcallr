@@ -128,33 +128,50 @@ function calcCatMove() {
 }
 
 // Moving cat animation
-// Broken now that its not on click
 
  function moveCat(){
   // finds current cat position in pixels, converts it to a number and assigns it to a value
   currentCatMargin = parseInt($cat.css("margin-left"));
-  console.log(currentCatMargin + "Before");
+  console.log(currentCatMargin + " cat's position moveCat");
   // moves cat to the left based on move data.
   if (turn){
-    $cat.animate({marginLeft: (currentCatMargin - (catMoveRaw)) + "px"}, "slow");
-    currentCatMargin = parseInt($cat.css("margin-left"));
-    console.log(currentCatMargin + ":After");
+    $cat.animate({marginLeft: (currentCatMargin - (catMoveRaw)) + "px"}, "slow", function(){
+      // sets final position after animation is complete
+      // currentCatMargin = parseInt($cat.css("margin-left"))
+      declareWinner();
+    });
     }
   // - changed for + if it is second player's turn
   else {
-    $cat.animate({marginLeft: (currentCatMargin + (catMoveRaw)) + "px"}, "slow");
-    currentCatMargin = parseInt($cat.css("margin-left"));
-    console.log(currentCatMargin + ":Before");
+    $cat.animate({marginLeft: (currentCatMargin + (catMoveRaw)) + "px"}, "slow", function(){
+      // sets final position after animation is complete
+      // currentCatMargin = parseInt($cat.css("margin-left"))
+      declareWinner();
+    });
   }
-
-
 }
+
+// Logic for declaring a winner if cat reaches player goal line
+// TODO Broken at the moment - it is retreiving the score before the animate is finished on moveCat?
+function declareWinner(){
+  currentCatMargin = parseInt($cat.css("margin-left"));
+  console.log(currentCatMargin + " cat's position declareWinner")
+  if (currentCatMargin < -5){
+    console.log("Player One Wins!")
+    $p1Text.text("P1 WINS!")
+  }
+  else if (currentCatMargin > 475){
+    console.log("Player Two Wins!")
+    $p2Text.text("P2 WINS!")
+  }
+}
+
 
 // Lock In Choice button
 $lockInBtn.on("click", function(){
   calcCatMove();
   moveCat();
-  declareWinner();
+  // declareWinner();
 
 })
 
@@ -182,19 +199,6 @@ function takeTurn(){
     $p1Text.text("P1 TURN")
     $p2Text.text("")
     $cat.toggleClass('flip-img')
-  }
-}
-
-// Logic for declaring a winner if cat reaches player goal line
-// TODO Broken at the moment
-function declareWinner(){
-  if (currentCatMargin < 0){
-    console.log("Player One Wins!")
-    $p1Text.text("P1 WINS!")
-  }
-  else if (currentCatMargin > 475){
-    console.log("Player Two Wins!")
-    $p2Text.text("P2 WINS!")
   }
 }
 
