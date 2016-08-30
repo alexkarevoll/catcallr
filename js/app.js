@@ -150,6 +150,10 @@ $newTurnBtn.on("click", function() {
   newMoves();
 })
 
+//////////////////
+// TAKING TURNS //
+//////////////////
+
 //Prints movement result message to players
 
 // Logic for declaring a winner if cat reaches player goal line
