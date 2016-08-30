@@ -48,6 +48,18 @@
     margin-top: 25%;
 }
 
+.new-turn-btn {
+  height: 64px;
+  width: 128px;
+  margin:0 auto;
+  margin-top: 7.5%;
+  background-color: coral;
+  line-height: 64px;
+  text-align: center;
+  border-radius: 10px;
+  font-size: 20px;
+}
+
 .player-one-text, .player-two-text{
   width:200px;
   height:200px;

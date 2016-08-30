@@ -7,6 +7,7 @@ var currentMoveSet = [];
 var playerMove = {};
 
 $choices = $('.choice');
+$cat = $('.cat-icon')
 
 //////////////////////////////////
 // OBJECTS AND HELPER FUNCTIONS //
@@ -116,10 +117,33 @@ $choices.on('click', function(){
 })
 
 // Logic for comparing chosen move to cat's weakness
+// Take the strength of the player's chosen move and multiply it by the strength of the cat's bias to moves of that type.
+function calcCatMove() {
+  catMoveRaw = playerMove.str * cat.bias[playerMove.type];
+  console.log(catMoveRaw);
+}
+
+// New Turn button
+
+$newTurnBtn = $('.new-turn-btn')
+$newTurnBtn. on("click", function() {
+  newMoves();
+})
+
+// Moving cat animation
+
+$cat.on('click', function (){
+  var currentMargin = $(this).css("margin-left");
+  console.log(currentMargin);
+  $(this).animate({marginLeft: (parseInt(currentMargin) + catMoveRaw) + "px"}, "slow");
+})
 
 
 
-// Logic for moving cat based on the comparison of weakness to user move, and printing status message to players
+
+// Animation for moving cat based on the raw move score, taking into account which player chose
+
+//Prints movement result message to players
 
 // Logic for declaring a winner if cat reaches player goal line
 
