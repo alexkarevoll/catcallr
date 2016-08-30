@@ -3,8 +3,12 @@
 //////////////////////
 
 var turn = true;
+var gameOver = false;
+var lockAllow = true;
+var newTurnAllow = false;
 var currentMoveSet = [];
 var playerMove = {};
+
 
 $cat = $('.cat-icon')
 $newTurnBtn = $('.new-turn-btn')
@@ -152,15 +156,16 @@ function calcCatMove() {
 }
 
 // Logic for declaring a winner if cat reaches player goal line
-// TODO Broken at the moment - it is retreiving the score before the animate is finished on moveCat?
+// TODO split into check and declare
 function declareWinner(){
+  // gets cat position
   currentCatMargin = parseInt($cat.css("margin-left"));
   console.log(currentCatMargin + " cat's position declareWinner")
-  if (currentCatMargin < -5){
+  if (currentCatMargin < -13){
     console.log("Player One Wins!")
     $p1Text.text("P1 WINS!")
   }
-  else if (currentCatMargin > 475){
+  else if (currentCatMargin > 485){
     console.log("Player Two Wins!")
     $p2Text.text("P2 WINS!")
   }
@@ -169,19 +174,29 @@ function declareWinner(){
 
 // Lock In Choice button
 $lockInBtn.on("click", function(){
-  calcCatMove();
-  moveCat();
-  // declareWinner();
+  if(lockAllow){
+    newTurnAllow = true;
+    calcCatMove();
+    moveCat();
+    // prevent button mashing until new turn
+    lockAllow = false;
+  }
+
 
 })
 
 // New Turn button
 
 $newTurnBtn.on("click", function() {
-  newMoves();
-  $newTurnBtn.text("Next Turn")
-  takeTurn();
+  if(newTurnAllow){
+    newMoves();
+    $newTurnBtn.text("Next Turn")
+    takeTurn();
+    lockAllow = true;
+    newTurnAllow = false;
+  }
 })
+
 
 //////////////////
 // TAKING TURNS //
