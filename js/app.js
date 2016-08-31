@@ -155,7 +155,7 @@ function calcCatMove() {
   console.log(catMoveRaw + "rawCatMove");
 }
 
-// Moving cat animation
+// Moving cat animation that also checks for winners and changes turns
  function moveCat(){
   // finds current cat position in pixels, converts it to a number and assigns it to a value
   currentCatMargin = parseInt($cat.css("margin-left"));
@@ -165,13 +165,15 @@ function calcCatMove() {
     $cat.animate({marginLeft: (currentCatMargin - (catMoveRaw)) + "px"}, "slow", function(){
       // checks to see if anyone won
       declareWinner();
+      // Let next player play after animation finishes
+      setTimeout(nextTurn, [1000]);
     });
     }
   // - changed for + if it is second player's turn
   else {
     $cat.animate({marginLeft: (currentCatMargin + (catMoveRaw)) + "px"}, "slow", function(){
-      // checks to see if anyone won
       declareWinner();
+      setTimeout(nextTurn, [1000]);
     });
   }
 }
