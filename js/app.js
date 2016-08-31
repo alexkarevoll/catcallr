@@ -11,7 +11,6 @@ var playerMove = {};
 
 
 $cat = $('.cat-icon')
-$newTurnBtn = $('.new-turn-btn')
 $choices = $('.choice');
 $p1Text = $('.player-one-text')
 $p2Text = $('.player-two-text')
@@ -80,7 +79,7 @@ var cat = {};
 cat.bias ={
   reason : .5,
   amuse : 1,
-  treat : 2,
+  treat : 10, //set for testing
 }
 
 // Helper function that picks a random item out of a given array no matter how long, then removes that item from the original array. Thanks, Mike and Kate
@@ -100,10 +99,8 @@ $choices.on('click', function(){
   $(this).toggleClass('selected-move')
 })
 
-//
-
 //////////////////////////
-// MOVE SELECTION SPACE //
+/////// GAME LOGIC ///////
 //////////////////////////
 
 // Function to populate board with four new random moves
@@ -165,15 +162,19 @@ function calcCatMove() {
     $cat.animate({marginLeft: (currentCatMargin - (catMoveRaw)) + "px"}, "slow", function(){
       // checks to see if anyone won
       declareWinner();
-      // Let next player play after animation finishes
-      setTimeout(nextTurn, [1000]);
+      // Let next player play after animation finishes as long as the game isnt over
+      if (!gameOver){
+        setTimeout(nextTurn, [1000]);
+      }
     });
     }
   // - changed for + if it is second player's turn
   else {
     $cat.animate({marginLeft: (currentCatMargin + (catMoveRaw)) + "px"}, "slow", function(){
       declareWinner();
-      setTimeout(nextTurn, [1000]);
+      if (!gameOver){
+        setTimeout(nextTurn, [1000]);
+      }
     });
   }
 }
@@ -187,6 +188,7 @@ function declareWinner(){
   if (currentCatMargin < -13){
     console.log("Player One Wins!")
     $p1Text.text("P1 WINS!")
+
   }
   else if (currentCatMargin > 485){
     console.log("Player Two Wins!")
@@ -194,16 +196,21 @@ function declareWinner(){
   }
 }
 
+// Game Over Logic
+var gameOver = function(){
+  gameOver = true;
+  $('.cat-space').toggleClass('display-none');
+  $('.reset-screen').toggleClass('display-none');
+}
 
-// Lock In Choice button
-// TODO remove this button
+// Lock In Choice Logic
 
 function lockIn(){
   if(lockAllow){
-    if(playerMove.text !== undefined){ // makes sure player has made a choice TODO doesn't work
+    if(playerMove.text !== undefined){ // makes sure player has made a choice
       calcCatMove();
       moveCat();
-      // prevent button mashing until new turn
+      // prevent button mashing until new turn, maybe not needed anymore since buttons were removed
       lockAllow = false;
       newTurnAllow = true;
     }
@@ -227,11 +234,6 @@ function nextTurn() {
   }
 }
 
-$newTurnBtn.on('click', nextTurn)
-
-//////////////////
-// TAKING TURNS //
-//////////////////
 function takeTurn(){
   // If it was P1's turn, make it p2's turn, print that out, and flip the cat to face the opponent.
   if (turn){
@@ -252,4 +254,5 @@ function takeTurn(){
 setMoves();
 newMoves();
 
-// Restart game button
+// Hides researt game screet
+// $('.reset-screen').toggleClass('display-none');
