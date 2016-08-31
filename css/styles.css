@@ -1,5 +1,6 @@
 * {
   overflow:hidden;
+  position: relative;
   cursor: default;
 }
 
@@ -47,6 +48,7 @@
   margin-right: -4px;
   font-size: 20px;
   color: white;
+  vertical-align: top;
   text-align: center;
   font-family: 'Press Start 2P', cursive;
 }
@@ -69,6 +71,7 @@
   color: white;
   text-align: center;
   font-family: 'Press Start 2P', cursive;
+  vertical-align: top;
 }
 
 button {
@@ -91,6 +94,7 @@ button {
   text-align: center;
   font-family: 'Press Start 2P', cursive;
   line-height: 100px;
+  vertical-align: top;
 }
 
 .user-choices{
