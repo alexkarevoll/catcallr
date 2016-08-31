@@ -3,6 +3,7 @@
 //////////////////////
 
 var turn = true;
+var turnCounter = 0;
 var gameOver = false;
 var lockAllow = true;
 var newTurnAllow = false;
@@ -28,62 +29,68 @@ function setMoves(){
   moves = [
   {
     text: "attempt to speak to cat in it's native tongue",
-    str: 20,
+    str: 30,
     type: 'reason',
   },
   {
     text: "draw a simple chart with an arrow pointing from the cat to you",
-    str: 40,
+    str: 50,
     type: 'reason',
   },
   {
     text: "deliver dissertation on the advantages of human companionship",
-    str: 60,
+    str: 70,
     type: 'reason',
   },
   {
     text: "click your tongue against the roof of your mouth",
-    str: 20,
+    str: 30,
     type: 'amuse',
   },
   {
     text: "pull out your car keys and start jingling them",
-    str: 40,
+    str: 50,
     type: 'amuse',
   },
   {
     text: "craft rudimentary catnip cigar toy",
-    str: 60,
+    str: 70,
     type: 'amuse',
   },
   {
     text: "hold out some pocket lint, but make it look like food",
-    str: 20,
+    str: 30,
     type: 'treat',
   },
   {
     text: "scavenge for a sardine can in a nearby trash can",
-    str: 40,
+    str: 50,
     type: 'treat',
   },
   {
     text: "peel the lox off of your work lunch and dangle it in front of you",
-    str: 60,
+    str: 70,
     type: 'treat',
   }
 ];
 }
 
 // Create a cat object with weaknesses to certain kinds of moves.
-// TODO In the future it would be awesome to have random cat stats or multiple cats TODO Set back to defaults once game over testing is done
+// TODO In the future it would be awesome to have random cat stats or multiple cats
+var cAttributes = [.75,1,2,3]
 
 var cat = {};
 
-cat.bias ={
-  reason : 10,
-  amuse : 10,
-  treat : 10, //set for testing
+function newCat(){
+  cat.bias ={
+    // sets cat's biases based on possible biases
+    // currently only happens once
+    reason : cAttributes[Math.floor(Math.random()*cAttributes.length)],
+    amuse : cAttributes[Math.floor(Math.random()*cAttributes.length)],
+    treat : cAttributes[Math.floor(Math.random()*cAttributes.length)],
+  }
 }
+
 
 // Helper function that picks a random item out of a given array no matter how long, then removes that item from the original array. Thanks, Mike and Kate
 function pickRandom(arr) {
@@ -217,7 +224,9 @@ function newGame(){
   setMoves()
   newMoves()
   nextTurn()
+  newCat()
   lockAllow = true
+  turnCounter = 0
 }
 
 //Call New Game on click
@@ -270,9 +279,10 @@ function takeTurn(){
   }
 }
 
-// Starts Game with moves on board
+// Starts Game with moves on board and a new random cat
 setMoves();
 newMoves();
+newCat();
 
 // Hides researt game screet
 // $('.reset-screen').toggleClass('display-none');
