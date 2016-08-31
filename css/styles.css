@@ -1,5 +1,6 @@
 * {
   overflow:hidden;
+  cursor: default;
 }
 
 .container {
@@ -75,7 +76,8 @@ button {
   width: 100px;
   background-color: #FFFF9F;
   font-family: 'Press Start 2P', cursive;
-  margin-top: 10%
+  margin-top: 5%;
+  margin-left: -35px;
 }
 
 .player-one-text, .player-two-text{
@@ -84,7 +86,7 @@ button {
   display:inline-block;
   margin-right: -4px;
   background-color: black;
-  font-size: 44px;
+  font-size: 35px;
   color: white;
   text-align: center;
   font-family: 'Press Start 2P', cursive;
@@ -106,17 +108,18 @@ button {
   line-height: 50px;
   text-indent: 30px;
   overflow: hidden;
-  font-size: 8px;
-  font-family: 'Press Start 2P', cursive;
+  font-size: 20px;
+  font-family: 'VT323', monospace;
   font-stretch: condensed;
 }
 
 .user-choices div:hover{
-  background-color: #FFFF9F;
+  color: #FFFF9F;
+  cursor: crosshair;
 }
 
 .selected-move{
-  background-color: #FFFF9F;
+  color: #FFFF9F;
 }
 
 .hide{
