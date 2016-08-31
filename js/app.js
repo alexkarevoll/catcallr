@@ -14,6 +14,8 @@ $cat = $('.cat-icon')
 $choices = $('.choice');
 $p1Text = $('.player-one-text')
 $p2Text = $('.player-two-text')
+$resetScreen = $('.reset-screen')
+$catSpace = $('.cat-space')
 
 //////////////////////////////////
 // OBJECTS AND HELPER FUNCTIONS //
@@ -188,19 +190,20 @@ function declareWinner(){
   if (currentCatMargin < -13){
     console.log("Player One Wins!")
     $p1Text.text("P1 WINS!")
-
+    setGameOver()
   }
   else if (currentCatMargin > 485){
     console.log("Player Two Wins!")
     $p2Text.text("P2 WINS!")
+    setGameOver()
   }
 }
 
-// Game Over Logic
-var gameOver = function(){
+// // Game Over Logic TODO Currently breaks turn taking? WITHOUT EVEN BEING CALLED EVER?
+function setGameOver(){
   gameOver = true;
-  $('.cat-space').toggleClass('display-none');
-  $('.reset-screen').toggleClass('display-none');
+  $catSpace.toggleClass('display-none');
+  $resetScreen.toggleClass('display-none');
 }
 
 // Lock In Choice Logic
