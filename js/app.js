@@ -16,12 +16,13 @@ $p1Text = $('.player-one-text')
 $p2Text = $('.player-two-text')
 $resetScreen = $('.reset-screen')
 $catSpace = $('.cat-space')
+$playAgainBtn = $('.play-again-btn')
 
 //////////////////////////////////
 // OBJECTS AND HELPER FUNCTIONS //
 //////////////////////////////////
 
-// Create a moves array with three categories of three moves and their various strengths
+// Create a moves array with three categories of three moves and their various strengths TODO Add more moves
 var moves;
 function setMoves(){
   moves = [
@@ -74,13 +75,13 @@ function setMoves(){
 }
 
 // Create a cat object with weaknesses to certain kinds of moves.
-// TODO In the future it would be awesome to have random cat stats or multiple cats
+// TODO In the future it would be awesome to have random cat stats or multiple cats TODO Set back to defaults once game over testing is done
 
 var cat = {};
 
 cat.bias ={
-  reason : .5,
-  amuse : 1,
+  reason : 10,
+  amuse : 10,
   treat : 10, //set for testing
 }
 
@@ -199,12 +200,28 @@ function declareWinner(){
   }
 }
 
-// // Game Over Logic TODO Currently breaks turn taking? WITHOUT EVEN BEING CALLED EVER?
+// // Game Over Logic
 function setGameOver(){
   gameOver = true;
   $catSpace.toggleClass('display-none');
   $resetScreen.toggleClass('display-none');
 }
+
+// New Game Logic
+
+function newGame(){
+  gameOver = false;
+  $catSpace.toggleClass('display-none');
+  $resetScreen.toggleClass('display-none');
+  $cat.animate({marginLeft: "236px"},1000)
+  setMoves()
+  newMoves()
+  nextTurn()
+  lockAllow = true
+}
+
+//Call New Game on click
+$playAgainBtn.on('click', newGame);
 
 // Lock In Choice Logic
 
