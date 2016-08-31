@@ -214,7 +214,8 @@ function calcCatMove() {
   console.log(currentCatMargin + " cat's position moveCat");
   // moves cat to the left based on move data.
   if (turn){
-    $cat.animate({marginLeft: (currentCatMargin - (catMoveRaw)) + "px"}, "slow", function(){
+    $cat.attr("src", "images/cat_run.gif")
+    $cat.animate({marginLeft: (currentCatMargin - (catMoveRaw)) + "px"}, 1000, function(){
       // checks to see if anyone won
       declareWinner();
       // Let next player play after animation finishes as long as the game isnt over
@@ -225,7 +226,8 @@ function calcCatMove() {
     }
   // - changed for + if it is second player's turn
   else {
-    $cat.animate({marginLeft: (currentCatMargin + (catMoveRaw)) + "px"}, "slow", function(){
+    $cat.attr("src", "images/cat_run.gif")
+    $cat.animate({marginLeft: (currentCatMargin + (catMoveRaw)) + "px"}, 1000, function(){
       declareWinner();
       if (!gameOver){
         setTimeout(nextTurn, [1000]);
@@ -314,12 +316,14 @@ function takeTurn(){
     turn = false;
     $p1Text.text("");
     $p2Text.text("P2 TURN")
+    $cat.attr("src", "images/catLeft.png")
     $cat.toggleClass('flip-img')
   }
   else{
     turn = true;
     $p1Text.text("P1 TURN")
     $p2Text.text("")
+    $cat.attr("src", "images/catLeft.png")
     $cat.toggleClass('flip-img')
   }
 }
