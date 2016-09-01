@@ -9,6 +9,8 @@ var lockAllow = true;
 var newTurnAllow = false;
 var currentMoveSet = [];
 var playerMove = {};
+var winner = "";
+var p1Win = false;
 
 
 $cat = $('.cat-icon')
@@ -22,6 +24,8 @@ $p2Text = $('.player-two-text')
 $resetScreen = $('.reset-screen')
 $catSpace = $('.cat-space')
 $playAgainBtn = $('.play-again-btn')
+$('body').on('click', '.play-again-btn', newGame);
+
 
 //////////////////////////////////
 // OBJECTS AND HELPER FUNCTIONS //
@@ -35,12 +39,12 @@ function setMoves(){
 
 // Create a cat object with weaknesses to certain kinds of moves.
 // TODO In the future it would be awesome to have random cat stats or multiple cats
-var cAttributes = [.5,1,2,3]
+cAttributes = [.5, 1, 1.5 , 2, 3]
 
 var cat = {};
 
 function newCat(){
-  cat.bias ={
+  cat.bias = {
     // sets cat's biases based on possible biases
     // currently only happens once
     reason : cAttributes[Math.floor(Math.random()*cAttributes.length)],
@@ -125,7 +129,7 @@ function calcCatMove() {
  function moveCat(){
   // finds current cat position in pixels, converts it to a number and assigns it to a value
   currentCatMargin = parseInt($cat.css("margin-left"));
-  console.log(currentCatMargin + " cat's position moveCat");
+  // console.log(currentCatMargin + " cat's position moveCat");
   // moves cat to the left based on move data if it is P1 Turn
   $cat.attr("src", "images/cat_run.gif")
   if (turn){
@@ -161,26 +165,33 @@ function animateEyebrows(){
   }
 }
 
-// Blinking Animation
 function blink(whoBlink){
-  whoBlink.animate({height: "1px", marginTop: "147px"}, 200, function(){
-    whoBlink.animate({height: "15px", marginTop: "140px"}, 200, false)
-  })
+  setTimeout(function() {
+    whoBlink.animate({height: "1px", marginTop: "147px"}, 200, function(){
+      whoBlink.animate({height: "15px", marginTop: "140px"}, 200, false)
+    })
+    blink(whoBlink)
+  }, Math.floor(Math.random() * (10000))+1000)
 }
 
-// Currently only works once
-setInterval(blink($playerOneEyes), 1000);
-setInterval(blink($playerTwoEyes), 1500);
+// setInterval(function(){
+  blink($playerOneEyes)
+// }, (Math.floor(Math.random() * (10000))+1000));
+
+// setInterval(function(){
+  blink($playerTwoEyes)
+// }, (Math.floor(Math.random() * (10000))+1000));
 
 // Logic for declaring a winner if cat reaches player goal line
 // TODO split into check and declare
 function declareWinner(){
   // gets cat current position
   currentCatMargin = parseInt($cat.css("margin-left"));
-  console.log(currentCatMargin + " cat's position declareWinner")
+  // console.log(currentCatMargin + " cat's position declareWinner")
   if (currentCatMargin < -13){
     console.log("Player One Wins!")
     $p1Text.text("P1 WINS!")
+    p1win = true;
     setGameOver()
   }
   else if (currentCatMargin > 485){
@@ -190,11 +201,24 @@ function declareWinner(){
   }
 }
 
+function whoWon(){
+  if (p1Win){
+    winner = "PLAYER 1 WINS"
+  }
+  else
+  {
+    winner = "PLAYER 2 WINS"
+  }
+}
+
 // // Game Over Logic
 function setGameOver(){
   gameOver = true;
+  whoWon();
+  // Toggles between play space and the game over screen
   $catSpace.toggleClass('display-none');
   $resetScreen.toggleClass('display-none');
+  $resetScreen.html("<br><br>" +winner+ "<br><br>" + "<button class='play-again-btn'>Play Again?</button>")
 }
 
 // New Game Logic
@@ -263,6 +287,8 @@ function takeTurn(){
     $cat.attr("src", "images/CatLeft.png")
     $cat.toggleClass('flip-img')
   }
+  turnCounter ++;
+  console.log("Turn Counter: " + turnCounter)
 }
 
 // Starts Game with moves on board and a new random cat

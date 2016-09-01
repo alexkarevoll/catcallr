@@ -5,7 +5,7 @@ var initMoves = [
   type: 'reason',
 },
 {
-  text: "try to use to Meowlish you learned in high school",
+  text: "try to use the Meowlish you learned in high school",
   str: 40,
   type: 'reason',
 },

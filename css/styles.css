@@ -36,7 +36,7 @@
   background-color: black;
   position: absolute;
   margin-top: 131px;
-  z-index: 1;
+  z-index: 100;
 }
 
 .player-one-eyes{
@@ -46,7 +46,7 @@
   position: absolute;
   margin-top: 140px;
   margin-left: 87px;
-  z-index: 1;
+  z-index: 100;
 }
 
 .player-two-eyebrows {
@@ -55,7 +55,7 @@
   background-color: black;
   position: absolute;
   margin-top: 131px;
-  z-index: 1;
+  z-index: 100;
 }
 
 .player-two-eyes{
@@ -65,7 +65,12 @@
   position: absolute;
   margin-top: 140px;
   margin-left: 87px;
-  z-index: 1;
+  z-index: 100;
+}
+
+.player-img {
+  position: relative;
+  z-index:50;
 }
 
 /*Stolen from css tricks*/
@@ -89,6 +94,7 @@
   vertical-align: top;
   text-align: center;
   font-family: 'Press Start 2P', cursive;
+  overflow: initial;
 }
 
 .cat-icon {
