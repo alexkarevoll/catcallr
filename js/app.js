@@ -225,9 +225,10 @@ function setGameOver(){
 function newGame(){
   gameOver = false;
   // finds the midpoint of the cat container, finds the mid point of the cat image, then places the cat at that midpoint
-  var containerMidpoint = $(this).parent().width() / 2
-  var catMidPoint = $cat.width() / 2
-  $cat.animate({marginLeft: containerMidpoint - catMidPoint},1000)
+  // var containerMidpoint = $(this).parent().width() / 2
+  // var catMidPoint = $cat.width() / 2
+  // $cat.animate({marginLeft: containerMidpoint - catMidPoint},1000)
+  $cat.animate({marginLeft: "236px"},1000)
   $catSpace.toggleClass('display-none')
   $resetScreen.toggleClass('display-none')
   $p1Img.attr("src", "images/person1.png")
