@@ -14,7 +14,7 @@
 .top {
   height: 400px;
   width: 1000px;
-  background-color: red;
+  background-color: #A9A9A9;
 }
 
 .bottom {
@@ -27,7 +27,45 @@
   width: 200px;
   display: inline-block;
   margin-right: -4px;
-  background-color: #A9A9A9;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.player-one-eyebrows {
+  height: 3px;
+  width: 18px;
+  background-color: black;
+  position: absolute;
+  margin-top: 131px;
+  z-index: 1;
+}
+
+.player-one-eyes{
+  height: 15px;
+  width: 15px;
+  background-color: black;
+  position: absolute;
+  margin-top: 140px;
+  margin-left: 87px;
+  z-index: 1;
+}
+
+.player-two-eyebrows {
+  height: 3px;
+  width: 18px;
+  background-color: black;
+  position: absolute;
+  margin-top: 131px;
+  z-index: 1;
+}
+
+.player-two-eyes{
+  height: 15px;
+  width: 15px;
+  background-color: black;
+  position: absolute;
+  margin-top: 140px;
+  margin-left: 87px;
+  z-index: 1;
 }
 
 /*Stolen from css tricks*/
