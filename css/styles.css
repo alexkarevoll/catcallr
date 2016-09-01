@@ -97,6 +97,7 @@
     margin: 0 auto;
     margin-top: 28%;
     margin-bottom: -10%;
+    z-index: 2;
 }
 
 .reset-screen{
@@ -170,4 +171,8 @@ button {
 
 .display-none{
   display: none;
+}
+
+.surprise {
+  margin-top: "115px";
 }

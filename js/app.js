@@ -12,6 +12,8 @@ var playerMove = {};
 
 
 $cat = $('.cat-icon')
+$playerOneEyebrows = $('.player-one-eyebrows')
+$playerTwoEyebrows = $('.player-two-eyebrows')
 $choices = $('.choice');
 $p1Text = $('.player-one-text')
 $p2Text = $('.player-two-text')
@@ -24,7 +26,6 @@ $playAgainBtn = $('.play-again-btn')
 //////////////////////////////////
 
 // References the moves array with three categories and their various strengths TODO Add more moves
-console.log(initMoves);
 var moves;
 function setMoves(){
   moves = Array.prototype.concat(initMoves);
@@ -115,6 +116,7 @@ $choices.on('click', lockIn)
 function calcCatMove() {
   catMoveRaw = playerMove.str * cat.bias[playerMove.type];
   console.log(catMoveRaw + "rawCatMove");
+  animateEyebrows();
 }
 
 // Moving cat animation that also checks for winners and changes turns
@@ -130,6 +132,7 @@ function calcCatMove() {
   //otherwise it will move it to the right
   $cat.animate({marginLeft: (currentCatMargin + (catMoveRaw)) + "px"}, 1000);
 
+  // Declare winner after animation is finished
   setTimeout(function(){
     declareWinner();
     if (!gameOver){
@@ -138,10 +141,28 @@ function calcCatMove() {
   },1000)
 }
 
+// Player Eyebrow Animations
+function animateEyebrows(){
+  if (catMoveRaw > 90){
+    if (turn){
+      $playerOneEyebrows.animate({marginTop: "115px"})
+      $playerTwoEyebrows.animate({marginTop: "140px"})
+    }
+    else {
+      $playerTwoEyebrows.animate({marginTop: "115px"})
+      $playerOneEyebrows.animate({marginTop: "140px"})
+    }
+  }
+  else {
+    $playerTwoEyebrows.animate({marginTop: "130px"})
+    $playerOneEyebrows.animate({marginTop: "130px"})
+  }
+}
+
 // Logic for declaring a winner if cat reaches player goal line
 // TODO split into check and declare
 function declareWinner(){
-  // gets cat position
+  // gets cat current position
   currentCatMargin = parseInt($cat.css("margin-left"));
   console.log(currentCatMargin + " cat's position declareWinner")
   if (currentCatMargin < -13){
@@ -164,7 +185,6 @@ function setGameOver(){
 }
 
 // New Game Logic
-
 function newGame(){
   gameOver = false;
   $catSpace.toggleClass('display-none');
@@ -173,7 +193,6 @@ function newGame(){
   // finds the midpoint of the cat container, finds the mid point of the cat image, then places the cat at that midpoint
   var containerMidpoint = $(this).parent().width() / 2
   var catMidPoint = $cat.width() / 2
-
   $cat.animate({marginLeft: containerMidpoint - catMidPoint},1000)
   setMoves()
   newMoves()
@@ -187,7 +206,6 @@ function newGame(){
 $playAgainBtn.on('click', newGame);
 
 // Lock In Choice Logic
-
 function lockIn(){
   if(lockAllow){
     if(playerMove.text !== undefined){ // makes sure player has made a choice
@@ -201,7 +219,6 @@ function lockIn(){
 }
 
 // Next Turn logic
-
 function nextTurn() {
   if(newTurnAllow){
     setMoves();
@@ -216,6 +233,7 @@ function nextTurn() {
   }
 }
 
+// Makes sure it is the right player's turn
 function takeTurn(){
   // If it was P1's turn, make it p2's turn, print that out, and flip the cat to face the opponent.
   if (turn){
@@ -238,6 +256,3 @@ function takeTurn(){
 setMoves();
 newMoves();
 newCat();
-
-// Hides researt game screet
-// $('.reset-screen').toggleClass('display-none');
