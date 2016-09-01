@@ -14,6 +14,8 @@ var playerMove = {};
 $cat = $('.cat-icon')
 $playerOneEyebrows = $('.player-one-eyebrows')
 $playerTwoEyebrows = $('.player-two-eyebrows')
+$playerOneEyes = $('.player-one-eyes')
+$playerTwoEyes = $('.player-two-eyes')
 $choices = $('.choice');
 $p1Text = $('.player-one-text')
 $p2Text = $('.player-two-text')
@@ -158,6 +160,17 @@ function animateEyebrows(){
     $playerOneEyebrows.animate({marginTop: "130px"})
   }
 }
+
+// Blinking Animation
+function blink(whoBlink){
+  whoBlink.animate({height: "1px", marginTop: "147px"}, 200, function(){
+    whoBlink.animate({height: "15px", marginTop: "140px"}, 200, false)
+  })
+}
+
+// Currently only works once
+setInterval(blink($playerOneEyes), 1000);
+setInterval(blink($playerTwoEyes), 1500);
 
 // Logic for declaring a winner if cat reaches player goal line
 // TODO split into check and declare
