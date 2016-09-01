@@ -224,13 +224,12 @@ function setGameOver(){
 // New Game Logic
 function newGame(){
   gameOver = false;
-  $catSpace.toggleClass('display-none');
-  $resetScreen.toggleClass('display-none');
   // finds the midpoint of the cat container, finds the mid point of the cat image, then places the cat at that midpoint
   var containerMidpoint = $(this).parent().width() / 2
   var catMidPoint = $cat.width() / 2
   $cat.animate({marginLeft: containerMidpoint - catMidPoint},1000)
-
+  $catSpace.toggleClass('display-none')
+  $resetScreen.toggleClass('display-none')
   $p1Img.attr("src", "images/person1.png")
   $p2Img.attr("src", "images/person2.png")
 
@@ -241,9 +240,6 @@ function newGame(){
   lockAllow = true
   turnCounter = 0
 }
-
-//Call New Game on click
-$playAgainBtn.on('click', newGame);
 
 // Lock In Choice Logic
 function lockIn(){
