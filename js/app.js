@@ -221,14 +221,14 @@ function takeTurn(){
     turn = false;
     $p1Text.text("");
     $p2Text.text("P2 TURN")
-    $cat.attr("src", "images/catLeft.png")
+    $cat.attr("src", "images/CatLeft.png")
     $cat.toggleClass('flip-img')
   }
   else{
     turn = true;
     $p1Text.text("P1 TURN")
     $p2Text.text("")
-    $cat.attr("src", "images/catLeft.png")
+    $cat.attr("src", "images/CatLeft.png")
     $cat.toggleClass('flip-img')
   }
 }
