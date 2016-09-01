@@ -21,6 +21,8 @@ $playerTwoEyes = $('.player-two-eyes')
 $choices = $('.choice');
 $p1Text = $('.player-one-text')
 $p2Text = $('.player-two-text')
+$p1Img = $('.player-one img')
+$p2Img = $('.player-two img')
 $resetScreen = $('.reset-screen')
 $catSpace = $('.cat-space')
 $playAgainBtn = $('.play-again-btn')
@@ -174,13 +176,8 @@ function blink(whoBlink){
   }, Math.floor(Math.random() * (10000))+1000)
 }
 
-// setInterval(function(){
-  blink($playerOneEyes)
-// }, (Math.floor(Math.random() * (10000))+1000));
-
-// setInterval(function(){
-  blink($playerTwoEyes)
-// }, (Math.floor(Math.random() * (10000))+1000));
+blink($playerOneEyes)
+blink($playerTwoEyes)
 
 // Logic for declaring a winner if cat reaches player goal line
 // TODO split into check and declare
@@ -191,34 +188,37 @@ function declareWinner(){
   if (currentCatMargin < -13){
     console.log("Player One Wins!")
     $p1Text.text("P1 WINS!")
+    $p1Img.attr("src", "images/person1_win.gif")
     p1win = true;
     setGameOver()
   }
   else if (currentCatMargin > 485){
     console.log("Player Two Wins!")
     $p2Text.text("P2 WINS!")
+    $p2Img.attr("src", "images/person2_win.gif")
     setGameOver()
   }
 }
 
-function whoWon(){
-  if (p1Win){
-    winner = "PLAYER 1 WINS"
-  }
-  else
-  {
-    winner = "PLAYER 2 WINS"
-  }
-}
+// function whoWon(){
+//   if (p1Win){ <- THIS ISNT TRUE SOON ENOUGH FOR IT TO WORK
+//     winner = "PLAYER 1 WINS"
+//   }
+//   else
+//   {
+//     winner = "PLAYER 2 WINS"
+//   }
+// }
 
 // // Game Over Logic
 function setGameOver(){
   gameOver = true;
-  whoWon();
   // Toggles between play space and the game over screen
   $catSpace.toggleClass('display-none');
   $resetScreen.toggleClass('display-none');
-  $resetScreen.html("<br><br>" +winner+ "<br><br>" + "<button class='play-again-btn'>Play Again?</button>")
+  // whoWon();
+  // TODO Logic in whoWon not working
+  // $resetScreen.html("<br><br>" +winner+ "<br><br>" + "<button class='play-again-btn'>Play Again?</button>")
 }
 
 // New Game Logic
@@ -226,11 +226,14 @@ function newGame(){
   gameOver = false;
   $catSpace.toggleClass('display-none');
   $resetScreen.toggleClass('display-none');
-  // $cat.animate({marginLeft: "236px"},1000)
   // finds the midpoint of the cat container, finds the mid point of the cat image, then places the cat at that midpoint
   var containerMidpoint = $(this).parent().width() / 2
   var catMidPoint = $cat.width() / 2
   $cat.animate({marginLeft: containerMidpoint - catMidPoint},1000)
+
+  $p1Img.attr("src", "images/person1.png")
+  $p2Img.attr("src", "images/person2.png")
+
   setMoves()
   newMoves()
   nextTurn()
