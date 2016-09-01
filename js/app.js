@@ -23,106 +23,16 @@ $playAgainBtn = $('.play-again-btn')
 // OBJECTS AND HELPER FUNCTIONS //
 //////////////////////////////////
 
-// Create a moves array with three categories of three moves and their various strengths TODO Add more moves
+// References the moves array with three categories and their various strengths TODO Add more moves
+console.log(initMoves);
 var moves;
 function setMoves(){
-  moves = [
-  {
-    text: "attempt to speak to cat in it's native tongue",
-    str: 40,
-    type: 'reason',
-  },
-  {
-    text: "try to use to Meowlish you learned in high school",
-    str: 40,
-    type: 'reason',
-  },
-  {
-    text: "ask not what the cat can do for you, but what you can do for the cat",
-    str: 40,
-    type: 'reason',
-  },
-  {
-    text: "draw a simple chart with an arrow pointing from the cat to you",
-    str: 50,
-    type: 'reason',
-  },
-  {
-    text: "teach a quick 'English for Strays' lesson",
-    str: 50,
-    type: 'reason',
-  },
-  {
-    text: "deliver dissertation on the advantages of human companionship",
-    str: 70,
-    type: 'reason',
-  },
-  {
-    text: "click your tongue against the roof of your mouth",
-    str: 40,
-    type: 'amuse',
-  },
-  {
-    text: "play a bird call youTube video on your phone",
-    str: 40,
-    type: 'amuse',
-  },
-  {
-    text: "open a newspaper and attempt to read it",
-    str: 40,
-    type: 'amuse',
-  },
-  {
-    text: "pull out your car keys and start jingling them",
-    str: 50,
-    type: 'amuse',
-  },
-  {
-    text: "craft rudimentary catnip toy from nearby materials",
-    str: 50,
-    type: 'amuse',
-  },
-  {
-    text: "build a box for the cat to sit in",
-    str: 70,
-    type: 'amuse',
-  },
-  {
-    text: "hold out some pocket lint, but make it look like food",
-    str: 40,
-    type: 'treat',
-  },
-  {
-    text: "offer up a dead rat from the nearby trash can",
-    str: 40,
-    type: 'treat',
-  },
-  {
-    text: "blow your tuna melt sandwich breath towards the cat",
-    str: 40,
-    type: 'treat',
-  },
-  {
-    text: "scavenge for a sardine can in a nearby trash can",
-    str: 50,
-    type: 'treat',
-  },
-  {
-    text: "make a whiring noise like a can opener",
-    str: 50,
-    type: 'treat',
-  },
-  {
-    text: "peel the lox off of your work lunch bagel and toss it",
-    str: 70,
-    type: 'treat',
-  }
-];
+  moves = Array.prototype.concat(initMoves);
 }
 
 // Create a cat object with weaknesses to certain kinds of moves.
 // TODO In the future it would be awesome to have random cat stats or multiple cats
-var cAttributes = [.75,1,2,3]
+var cAttributes = [.5,1,2,3]
 
 var cat = {};
 
@@ -212,28 +122,20 @@ function calcCatMove() {
   // finds current cat position in pixels, converts it to a number and assigns it to a value
   currentCatMargin = parseInt($cat.css("margin-left"));
   console.log(currentCatMargin + " cat's position moveCat");
-  // moves cat to the left based on move data.
+  // moves cat to the left based on move data if it is P1 Turn
+  $cat.attr("src", "images/cat_run.gif")
   if (turn){
-    $cat.attr("src", "images/cat_run.gif")
-    $cat.animate({marginLeft: (currentCatMargin - (catMoveRaw)) + "px"}, 1000, function(){
-      // checks to see if anyone won
-      declareWinner();
-      // Let next player play after animation finishes as long as the game isnt over
-      if (!gameOver){
-        setTimeout(nextTurn, [1000]);
-      }
-    });
-    }
-  // - changed for + if it is second player's turn
-  else {
-    $cat.attr("src", "images/cat_run.gif")
-    $cat.animate({marginLeft: (currentCatMargin + (catMoveRaw)) + "px"}, 1000, function(){
-      declareWinner();
-      if (!gameOver){
-        setTimeout(nextTurn, [1000]);
-      }
-    });
+    catMoveRaw = 0 - catMoveRaw
   }
+  //otherwise it will move it to the right
+  $cat.animate({marginLeft: (currentCatMargin + (catMoveRaw)) + "px"}, 1000);
+
+  setTimeout(function(){
+    declareWinner();
+    if (!gameOver){
+      setTimeout(nextTurn, [1000]);
+    }
+  },1000)
 }
 
 // Logic for declaring a winner if cat reaches player goal line
@@ -267,7 +169,11 @@ function newGame(){
   gameOver = false;
   $catSpace.toggleClass('display-none');
   $resetScreen.toggleClass('display-none');
-  $cat.animate({marginLeft: "236px"},1000)
+  // $cat.animate({marginLeft: "236px"},1000)
+  var containerMidpoint = $(this).parent().width() / 2
+  var catMidPoint = $cat.width() / 2
+
+  $cat.animate({marginLeft: containerMidpoint - catMidPoint},1000)
   setMoves()
   newMoves()
   nextTurn()
@@ -293,8 +199,7 @@ function lockIn(){
   }
 }
 
-// New Turn button
-// TODO remove this button
+// Next Turn logic
 
 function nextTurn() {
   if(newTurnAllow){
