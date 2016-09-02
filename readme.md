@@ -9,8 +9,10 @@ Taking turns, two players attempt to convince a cat to come to their side of the
 
 Players attempt to find out what kind of cat they are dealing with using deductive reasoning. They then use that information to choose the best moves available to them on their turn. Players must pay careful attention to their opponent's choices, because they might reveal information the player can exploit when it's their turn to call that cat.
 
-#### Controls:
-Players use the mouse to select from a randomized set of choices each turn.
+#### How to Play:
+Use the mouse to select from a randomized set of choices each turn.
+
+Play Catcallr <a href="https://alexkarevoll.github.io/catcallr/" title="Catcallr"> RIGHT HERE</a>.
 
 ---
 
