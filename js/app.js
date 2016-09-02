@@ -229,8 +229,7 @@ function newGame(){
   // var catMidPoint = $cat.width() / 2
   // $cat.animate({marginLeft: containerMidpoint - catMidPoint},1000)
   $cat.animate({marginLeft: "236px"},1000)
-  // $catSpace.toggleClass('display-none')
-  $catSpace.attr("style" "z-axis:-1")
+  $catSpace.toggleClass('display-none')
   $resetScreen.toggleClass('display-none')
   $p1Img.attr("src", "images/person1.png")
   $p2Img.attr("src", "images/person2.png")

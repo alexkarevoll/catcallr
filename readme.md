@@ -48,7 +48,7 @@ Cat Callr is being built using HTML, CSS, JavaScript, and the jQuery library
 + Randomized choices for maximum hilarity
 
 ---
-### Credit where credit it due
+### Credit where credit is due
 
 Pixel Art Created With <a href="http://www.piskelapp.com/" title = "Piksel"> Piskel</a>
 
